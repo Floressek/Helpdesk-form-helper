@@ -4,5 +4,5 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('api/', include('helpdesk.urls')),
-    # path('', TemplateView.as_view(template_name='index.html')), # For React app
+    path('', TemplateView.as_view(template_name='index.html')), # For React app
 ]
