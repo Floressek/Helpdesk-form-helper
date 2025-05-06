@@ -5,7 +5,8 @@ import {useFormContext} from "@/context/FormContext";
 import { getInitialMessage, sendMessage} from "@/services/api";
 
 const ChatContainer: React.FC = () => {
-    const {formData, chatHistory, addChatMessage, updateFormData, isComplete} = useFormContext();
+    // const {formData, chatHistory, addChatMessage, updateFormData, isComplete} = useFormContext();
+    const {formData, chatHistory, addChatMessage, updateFormData} = useFormContext();
     const [isPending, setIsPending] = useState(false);
     const chatContainerRef = useRef<HTMLDivElement>(null); // Reference to the chat container will be used to scroll to the bottom
     const initRef = useRef(false); // Reference to check if the component has mounted
@@ -97,7 +98,7 @@ const ChatContainer: React.FC = () => {
             </div>
             <ChatInput
             onSendMessage={handleSendMessage}
-            disabled={isPending || isComplete}></ChatInput>
+            disabled={isPending}></ChatInput>
         </div>
     )
 };

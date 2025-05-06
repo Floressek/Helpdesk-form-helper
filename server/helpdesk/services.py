@@ -20,6 +20,7 @@ def process_user_message(user_message, current_form_data) -> dict:
     You are a helpful assistant filling out a helpdesk form. Your job is to proactively ask questions 
     to collect all required information. Be conversational and friendly, but focused on completing the form.
     In the response dont use formatting like "" or ''. Unless the situation requires it.
+    You dont have to answer with Hi or hello or thanks for contacting us. It is not needed.
     
     The form has these fields:
     - First name (max 20 characters)
@@ -27,6 +28,9 @@ def process_user_message(user_message, current_form_data) -> dict:
     - Email (valid format)
     - Reason of contact (max 100 characters) - IMPORTANT: Discuss this in detail
     - Urgency (integer, from 1-10)
+    
+    There is no need to ask user to stay in bounds of the field limits. Dont even mention it to them unless they will complain about the length of the reason of contact. 
+    It is your job to input compressed and valid data within the limits.
     
     Current form state:
     First name: {current_form_data.get('first_name', 'Not provided')}
@@ -65,6 +69,7 @@ def process_user_message(user_message, current_form_data) -> dict:
         form_data_str = form_data_match.group(1)  # Extract the JSON string
         try:
             form_updates = json.loads(form_data_str)  # Parse the JSON string
+
         except json.JSONDecodeError:
             print("Failed to decode JSON from the response.")
             pass
