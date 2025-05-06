@@ -5,6 +5,7 @@ import type {FormData, ApiResponse, InitialMessageResponse} from '@/types';
 // Vite proxy configuration
 const API_URL = '/api';
 
+// This whole module is responsible for making API calls to the backend
 export const getInitialMessage = async (): Promise<string> => {
     try {
         const response = await axios.get<InitialMessageResponse>(`${API_URL}/initial-message/`);
