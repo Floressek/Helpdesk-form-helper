@@ -114,7 +114,7 @@ const FormContainer: React.FC = () => {
 
                 <FormField
                     label="Urgency Level"
-                    value={String(formData.urgency || 5)}
+                    value={String(formData.urgency || '')}
                     type="range"
                     required
                 />

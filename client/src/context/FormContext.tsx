@@ -34,7 +34,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({children}) => {
         last_name: '',
         email: '',
         reason_of_contact: '',
-        urgency: 5,
+        urgency: NaN,
     });
 
     const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
@@ -59,7 +59,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({children}) => {
             last_name: '',
             email: '',
             reason_of_contact: '',
-            urgency: 5,
+            urgency: NaN,
         });
         setChatHistory([]);
     }

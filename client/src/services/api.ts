@@ -28,10 +28,13 @@ export const sendMessage = async (message: string, formData: Partial<FormData>):
     }
 };
 
-export const submitForm = async (formData: FormData): Promise<FormData> => {
+export const submitForm = async (formData: FormData): Promise<void> => {
     try {
-        const response = await axios.post<FormData>(`${API_URL}/forms/`, formData);
-        return response.data;
+        // Ready code for connection to db or smth
+        // const response = await axios.post<FormData>(`${API_URL}/forms/`, formData);
+        // return response.data;
+        // For testing purposes, we will just return the formData in an alert in json
+        alert(JSON.stringify(formData, null, 2));
     } catch (error) {
         console.error('Error submitting form:', error);
         throw error;
