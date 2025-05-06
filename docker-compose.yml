@@ -1,0 +1,22 @@
+services:
+  backend:
+    build: ./server
+    volumes:
+      - ./server:/app
+      - backend_static:/app/static
+    env_file:
+      - .env
+    ports:
+        - "8000:8000"
+    restart: always
+
+  frontend:
+    build: ./client
+    ports:
+        - "80:80"
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  backend_static:
