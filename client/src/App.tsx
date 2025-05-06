@@ -7,7 +7,6 @@ const App: React.FC = () => {
     return (
         <FormProvider>
             <SplitLayout/>
-            <p>Hello world</p>
         </FormProvider>
     );
 };

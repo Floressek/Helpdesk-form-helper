@@ -8,6 +8,7 @@ const ChatContainer: React.FC = () => {
     const {formData, chatHistory, addChatMessage, updateFormData, isComplete} = useFormContext();
     const [isPending, setIsPending] = useState(false);
     const chatContainerRef = useRef<HTMLDivElement>(null); // Reference to the chat container will be used to scroll to the bottom
+    const initRef = useRef(false); // Reference to check if the component has mounted
 
     useEffect(() => {
         if (chatContainerRef.current) {
@@ -18,7 +19,8 @@ const ChatContainer: React.FC = () => {
     // Initial message
     useEffect(() => {
         const initializeChat = async () => {
-            if (chatHistory.length === 0) {
+            if (chatHistory.length === 0 && !initRef.current) {
+                initRef.current = true; // Set the reference to true to prevent re-initialization
                 setIsPending(true);
                 try {
                     const message = await getInitialMessage();
@@ -71,9 +73,9 @@ const ChatContainer: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col h-full">
-            <div className="">
-                <h2 className="">AI Helpdesk Assistant</h2>
+        <div className="flex flex-col h-full bg-gray-900 border-l border-gray-700">
+            <div className="bg-blue-600 p-4 text-white">
+                <h2 className="text-xl font-semibold">AI Helpdesk Assistant</h2>
             </div>
 
             <div
@@ -86,7 +88,7 @@ const ChatContainer: React.FC = () => {
 
                     {isPending && (
                         <div className="flex justify-center">
-                            <div className="">
+                            <div className="bg-gray-800 text-gray-300 px-4 py-2 rounded">
                                 Ai is typing...
                             </div>
                         </div>

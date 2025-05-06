@@ -21,17 +21,21 @@ def chat_with_ai(request):
     Endpoint to chat with the AI for helpdesk form assistance.
     """
     user_message = request.data.get('message')
-    current_form_data = request.data.get('form_data', {})
-
     if not user_message:
         return Response({"error": "Message is required."}, status=status.HTTP_400_BAD_REQUEST)
-
+    current_form_data = request.data.get('form_data', {})
+    if not current_form_data:
+        return Response({"error": "Form data is required."}, status=status.HTTP_400_BAD_REQUEST)
     try:
         # Process the user message and get the AI response
         ai_response = process_user_message(user_message, current_form_data)
         return Response(ai_response, status=status.HTTP_200_OK)
     except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({
+            "error": str(e),
+            "type": type(e).__name__
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 @api_view(['GET'])
 def get_initial_ai_message(request):
