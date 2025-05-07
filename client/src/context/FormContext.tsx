@@ -53,17 +53,6 @@ export const FormProvider: React.FC<FormProviderProps> = ({children}) => {
         ]);
     };
 
-    // const resetForm = () => {
-    //     setFormData({
-    //         first_name: '',
-    //         last_name: '',
-    //         email: '',
-    //         reason_of_contact: '',
-    //         urgency: NaN,
-    //     });
-    //     setChatHistory([]);
-    // }
-
     const resetForm = useCallback(() => {
         window.location.reload();
     }, []);
