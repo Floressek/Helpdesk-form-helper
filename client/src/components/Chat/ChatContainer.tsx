@@ -51,9 +51,9 @@ const ChatContainer: React.FC = () => {
         setIsPending(true);
         try {
             // Ai response
-            console.log("Sending message:", message);
-            console.log("Form data:", formData);
-            console.log("Chat history:", message);
+            // console.log("Sending message:", message);
+            // console.log("Form data:", formData);
+            // console.log("Chat history:", message);
             const response = await sendMessage(message, formData, chatHistory);
 
             if (response.form_updates) {

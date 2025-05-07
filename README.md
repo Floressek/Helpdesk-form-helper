@@ -1,8 +1,8 @@
 # AI Form Assistant
 
-Aplikacja wykorzystująca generatywną sztuczną inteligencję (Google Gemini) do pomocy użytkownikom w wypełnianiu formularza helpdesk. Użytkownicy mogą prowadzić konwersację z asystentem AI, który zbiera potrzebne informacje i wypełnia formularz.
+An application that uses generative AI (Google Gemini) to help users fill out a helpdesk form. Users can have a conversation with the AI assistant, which collects necessary information and fills out the form.
 
-## Technologie
+## Technologies
 
 ### Backend:
 - Django 5.2
@@ -11,143 +11,135 @@ Aplikacja wykorzystująca generatywną sztuczną inteligencję (Google Gemini) d
 - Google Generative AI API (Gemini)
 
 ### Frontend:
-- React
+- React 19
 - TypeScript
-- Axios (komunikacja z API)
-- React Router
-- CSS (lub Tailwind/Material UI)
+- Axios (API communication)
+- TailwindCSS
 
-## Struktura projektu
+## Project Structure
 ```
-
 project/
 ├── client/                  # Frontend React
-├── server/                  # Backend Django
-│   ├── DjangoProject/       # Konfiguracja Django
-│   ├── api/                 # Aplikacja API
-│   ├── chat/                # Aplikacja obsługująca czat
-│   ├── form/                # Aplikacja obsługująca formularze
-│   ├── manage.py
-│   ├── pyproject.toml       # Zależności Poetry
-│   └── .env                 # Zmienne środowiskowe (klucz API)
-└── docker-compose.yml       # Konfiguracja konteneryzacji
+│   ├── public/              # Static files
+│   ├── src/                 # Source code
+│   │   ├── assets/          # Images and other assets
+│   │   ├── components/      # React components
+│   │   │   ├── Chat/        # Chat-related components
+│   │   │   ├── Form/        # Form-related components
+│   │   │   └── Layout/      # Layout components
+│   │   ├── context/         # React context providers
+│   │   ├── services/        # API services
+│   │   └── types/           # TypeScript type definitions
+│   ├── Dockerfile           # Docker configuration for frontend
+│   └── nginx.conf           # Nginx configuration
+└── server/                  # Backend Django
+    ├── helpdesk/            # Main application
+    │   ├── models.py        # Database models
+    │   ├── serializers.py   # API serializers
+    │   ├── services.py      # Business logic and AI integration
+    │   ├── urls.py          # URL routing
+    │   └── views.py         # API endpoints
+    ├── src/                 # Django configuration
+    │   ├── settings.py      # Django settings
+    │   ├── urls.py          # Main URL configuration
+    │   └── wsgi.py          # WSGI configuration
+    ├── Dockerfile           # Docker configuration for backend
+    └── pyproject.toml       # Dependencies (Poetry)
 ```
-## Funkcje
 
-- Konwersacja z AI w interfejsie czatu
-- Dynamiczne wypełnianie formularza na podstawie rozmowy
-- Podgląd aktualnego stanu formularza w dowolnym momencie
-- Walidacja pól formularza (format e-mail, długości pól itp.)
-- Zapisywanie wypełnionego formularza w formacie JSON
+## Features
 
-## Wymagania
+- Conversation with AI in a chat interface
+- Dynamic form filling based on the conversation
+- Real-time form state view
+- Form validation (email format, field lengths, etc.)
+- Form submission
 
-- Docker i Docker Compose
-- Klucz API Google Gemini (do umieszczenia w pliku .env)
+## Requirements
 
-## Instalacja i uruchomienie
+- Docker and Docker Compose
+- Google Gemini API key (to be placed in .env file)
 
-### Klonowanie repozytorium
+## Installation and Setup
+
+### Clone the repository
 
 ```bash
-git clone https://github.com/twoj-username/ai-form-assistant.git
+git clone https://github.com/your-username/ai-form-assistant.git
 cd ai-form-assistant
 ```
 
-### Konfiguracja zmiennych środowiskowych
+### Environment variables setup
 
-Utwórz plik `.env` w katalogu `server/` z następującą zawartością:
+Create a `.env` file in the project root with:
 
 ```
-GEMINI_API_KEY=twoj-klucz-api
+GEMINI_API_KEY=your-api-key
 DEBUG=False
-SECRET_KEY=twoj-tajny-klucz-django
+SECRET_KEY=your-django-secret-key
 ALLOWED_HOSTS=localhost,127.0.0.1
 ```
 
+## Running with Docker Compose—FOR RECRUITMENT TASK
 
-### Uruchomienie za pomocą Docker Compose
-
-```shell script
+```bash
 docker-compose up --build
 ```
 
-
-Aplikacja będzie dostępna pod adresem:
+The application will be available at:
 - Frontend: http://localhost
 - Backend API: http://localhost:8000/api/
 
-## Użytkowanie
+## Usage
 
-1. Otwórz aplikację w przeglądarce (http://localhost:3000)
-2. Rozpocznij konwersację z asystentem AI, który będzie zadawać pytania potrzebne do wypełnienia formularza
-3. Po wypełnieniu wszystkich pól formularz zostanie zapisany w formacie JSON
-4. Możesz edytować formularz ręcznie lub kontynuować rozmowę z asystentem
+1. Open the application in your browser (http://localhost)
+2. Start a conversation with the AI assistant, which will ask questions needed to fill out the form
+3. The form on the left side will be automatically filled as you provide information
+4. Once all fields are filled, you can submit the form
 
-## Struktura formularza
+## Form Structure
 
-Formularz helpdesk zawiera następujące pola:
-- Imię (string, max 20 znaków)
-- Nazwisko (string, max 20 znaków)
-- Email (string, walidacja formatu)
-- Powód kontaktu (string, max 100 znaków)
-- Pilność (liczba całkowita, zakres 1-10)
+The helpdesk form contains the following fields:
+- First Name (string, max 20 characters)
+- Last Name (string, max 20 characters)
+- Email (string, validated format)
+- Reason of Contact (string, max 100 characters)
+- Urgency (integer, range 1-10)
 
-## Rozwój projektu
+## Development Setup
 
-### Wymagania deweloperskie
-
-Dla backendu (serwer Django):
-```shell script
+### Backend (Django server):
+```bash
 cd server
 poetry install
-```
-
-
-Dla frontendu (aplikacja React):
-```shell script
-cd client
-npm install
-```
-
-
-### Uruchamianie w trybie deweloperskim
-
-Backend:
-```shell script
-cd server
 poetry run python manage.py runserver
 ```
 
-
-Frontend:
-```shell script
+### Frontend (React app):
+```bash
 cd client
-npm start
+npm install
+npm run dev
 ```
 
+## First Time Setup for development
 
-## Automatyzacja testów
-
-Backend:
-```shell script
+### Backend:
+```bash
 cd server
-poetry run python manage.py test
+poetry install
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
 ```
 
-
-Frontend:
-```shell script
+### Frontend:
+```bash
 cd client
-npm test
+npm install
+npm run dev
 ```
 
-
-## Budowa Dockera
-
-Projekt zawiera pliki Dockerfile dla frontendu i backendu, a także docker-compose.yml do łatwego uruchamiania całej aplikacji.
-
-## Autor
+## Author
 
 Szymon Florek
-
