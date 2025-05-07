@@ -15,10 +15,9 @@ def process_user_message(user_message, current_form_data, chat_history=None) -> 
 
     # FIXME
     # Here we have a history of the conversation with the user as a list of dictionaries.
-    # IT IS NOT RECOMMENDED TO
-    # USE ON PRODUCTION.
+    # IT IS NOT RECOMMENDED TO USE ON PRODUCTION.
     # I would highly recommend using a database to store the history of the conversation with the
-    # user.
+    # user. And implement token bucket or some other form of rate limiting to avoid token context window overflows.
     # Considering this is only a demo for recruitment purposes, I will not implement this along with auth for
     # frontend which I would do normally in an app like this one.
     if chat_history is None:
