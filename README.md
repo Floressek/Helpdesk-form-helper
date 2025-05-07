@@ -60,13 +60,13 @@ project/
 - Docker and Docker Compose
 - Google Gemini API key (to be placed in .env file)
 
-## Installation and Setup
+## Installation and Setup—FOR RECRUITMENT TASK
 
 ### Clone the repository
 
 ```bash
-git clone https://github.com/your-username/ai-form-assistant.git
-cd ai-form-assistant
+git clone https://github.com/Floressek/Helpdesk-form-helper.git
+cd Helpdesk-form-helper
 ```
 
 ### Environment variables setup
@@ -77,18 +77,19 @@ Create a `.env` file in the project root with:
 GEMINI_API_KEY=your-api-key
 DEBUG=False
 SECRET_KEY=your-django-secret-key
-ALLOWED_HOSTS=localhost,127.0.0.1
+ALLOWED_HOSTS='localhost,127.0.0.1, *'
 ```
 
-## Running with Docker Compose—FOR RECRUITMENT TASK
+The * is not recommended, but for the POC purposes we will leave it be.
+
+## Running with Docker Compose
 
 ```bash
 docker-compose up --build
 ```
 
 The application will be available at:
-- Frontend: http://localhost
-- Backend API: http://localhost:8000/api/
+http://localhost
 
 ## Usage
 
