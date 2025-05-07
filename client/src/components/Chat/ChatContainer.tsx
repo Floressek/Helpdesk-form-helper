@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect} from "react";
 import ChatBubble from "@/components/Chat/ChatBubble";
 import ChatInput from "@/components/Chat/ChatInput";
 import {useFormContext} from "@/context/FormContext";
-import { getInitialMessage, sendMessage} from "@/services/api";
+import {getInitialMessage, sendMessage} from "@/services/api";
 
 const ChatContainer: React.FC = () => {
     // const {formData, chatHistory, addChatMessage, updateFormData, isComplete} = useFormContext();
@@ -51,7 +51,10 @@ const ChatContainer: React.FC = () => {
         setIsPending(true);
         try {
             // Ai response
-            const response = await sendMessage(message, formData);
+            console.log("Sending message:", message);
+            console.log("Form data:", formData);
+            console.log("Chat history:", message);
+            const response = await sendMessage(message, formData, chatHistory);
 
             if (response.form_updates) {
                 updateFormData(response.form_updates);
@@ -80,8 +83,8 @@ const ChatContainer: React.FC = () => {
             </div>
 
             <div
-            ref={chatContainerRef}
-            className="flex-1 p-4 overflow-y-auto">
+                ref={chatContainerRef}
+                className="flex-1 p-4 overflow-y-auto">
                 <div className="space-y-4">
                     {chatHistory.map((msg, index) => (
                         <ChatBubble key={index} message={msg}></ChatBubble>
@@ -97,8 +100,8 @@ const ChatContainer: React.FC = () => {
                 </div>
             </div>
             <ChatInput
-            onSendMessage={handleSendMessage}
-            disabled={isPending}></ChatInput>
+                onSendMessage={handleSendMessage}
+                disabled={isPending}></ChatInput>
         </div>
     )
 };

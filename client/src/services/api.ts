@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type {FormData, ApiResponse, InitialMessageResponse} from '@/types';
+import type {FormData, ApiResponse, InitialMessageResponse, ChatMessage} from '@/types';
 
 // Vite proxy configuration
 const API_URL = '/api';
@@ -15,11 +15,16 @@ export const getInitialMessage = async (): Promise<string> => {
     }
 };
 
-export const sendMessage = async (message: string, formData: Partial<FormData>): Promise<ApiResponse> => {
+export const sendMessage = async (
+    message: string,
+    formData: Partial<FormData>,
+    chatHistory: ChatMessage[]
+): Promise<ApiResponse> => {
     try {
         const response = await axios.post<ApiResponse>(`${API_URL}/chat/`, {
             message,
-            form_data: formData
+            form_data: formData,
+            chat_history: chatHistory
         });
         return response.data;
     } catch (error) {

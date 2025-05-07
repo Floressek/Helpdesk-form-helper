@@ -10,8 +10,30 @@ API_KEY = os.getenv('GEMINI_API_KEY')
 genai.configure(api_key=API_KEY)
 
 
-def process_user_message(user_message, current_form_data) -> dict:
+def process_user_message(user_message, current_form_data, chat_history=None) -> dict:
     model = genai.GenerativeModel("gemini-2.0-flash")
+
+    # FIXME
+    # Here we have a history of the conversation with the user as a list of dictionaries.
+    # IT IS NOT RECOMMENDED TO
+    # USE ON PRODUCTION.
+    # I would highly recommend using a database to store the history of the conversation with the
+    # user.
+    # Considering this is only a demo for recruitment purposes, I will not implement this along with auth for
+    # frontend which I would do normally in an app like this one.
+    if chat_history is None:
+        chat_history = []
+
+    # Format chat history for the prompt
+    formatted_history = ""
+    if chat_history:
+        formatted_history = "Previous conversation:\n"
+        for entry in chat_history:
+            if entry['sender'] == 'user':
+                formatted_history += f"User: {entry['message']}\n"
+            else:
+                formatted_history += f"Assistant: {entry['message']}\n"
+        formatted_history += "\n"
 
     required_fields = ['first_name', 'last_name', 'email', 'reason_of_contact', 'urgency']
     empty_fields = [field for field in required_fields if not current_form_data.get(field)]
@@ -39,6 +61,11 @@ def process_user_message(user_message, current_form_data) -> dict:
     Reason of contact: {current_form_data.get('reason_of_contact', 'Not provided')}
     Urgency: {current_form_data.get('urgency', 'Not provided')}
     
+    Current history of the conversation with the user:
+    {formatted_history}
+    It is advised to use the history of the conversation with the user to get the context of the conversation or more information for u to add to the form.
+    Example: in the first message the user might say "I have a problem with my order" and in the next message they might say "I want to cancel it". So u take the two information and add it to the form to the reason of contact field in a proper way.
+    
     User message: {user_message}
     
     Empty fields that still need to be filled: {', '.join(empty_fields) if empty_fields else 'All fields are filled'}
@@ -49,6 +76,10 @@ def process_user_message(user_message, current_form_data) -> dict:
     3. For the "Reason of contact" field, ask follow-up questions to get detailed information.
     4. If all fields are filled, ask the user to confirm if everything is correct and offer to make changes if needed.
     5. Always extract any form field information from the user's response.
+    6. If the user provides information for multiple fields at once, update the form data accordingly.
+    
+    IMPORTANT:
+    Sometimes the user might give u the first and last name in one message like "My name is Jan Kowalski" where the first_name: is Jan and the last_name: Kowalski. Then add both to the form and ask in the next message, asking about other fields, whether the names are correct.
     
     Always include any form field data you've identified in JSON format at the end of your response.
     Use this exact format without substitutions:

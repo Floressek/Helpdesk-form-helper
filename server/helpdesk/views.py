@@ -26,9 +26,10 @@ def chat_with_ai(request):
     current_form_data = request.data.get('form_data', {})
     if not current_form_data:
         return Response({"error": "Form data is required."}, status=status.HTTP_400_BAD_REQUEST)
+    chat_history = request.data.get('chat_history', [])
     try:
         # Process the user message and get the AI response
-        ai_response = process_user_message(user_message, current_form_data)
+        ai_response = process_user_message(user_message, current_form_data, chat_history)
         return Response(ai_response, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({
