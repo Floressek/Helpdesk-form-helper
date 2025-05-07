@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useState, type ReactNode} from 'react';
+import React, {createContext, useContext, useState, type ReactNode, useCallback} from 'react';
 import type {FormData, ChatMessage} from '@/types';
 
 interface FormContextType {
@@ -53,16 +53,20 @@ export const FormProvider: React.FC<FormProviderProps> = ({children}) => {
         ]);
     };
 
-    const resetForm = () => {
-        setFormData({
-            first_name: '',
-            last_name: '',
-            email: '',
-            reason_of_contact: '',
-            urgency: NaN,
-        });
-        setChatHistory([]);
-    }
+    // const resetForm = () => {
+    //     setFormData({
+    //         first_name: '',
+    //         last_name: '',
+    //         email: '',
+    //         reason_of_contact: '',
+    //         urgency: NaN,
+    //     });
+    //     setChatHistory([]);
+    // }
+
+    const resetForm = useCallback(() => {
+        window.location.reload();
+    }, []);
 
     const isComplete = Boolean(
         formData.first_name &&

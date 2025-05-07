@@ -54,7 +54,7 @@ def process_user_message(user_message, current_form_data, chat_history=None) -> 
     - First name (max 20 characters)
     - Last name (max 20 characters)
     - Email (valid format)
-    - Reason of contact (max 100 characters) - IMPORTANT: Discuss this in detail
+    - Reason of contact (max 100 characters, min 10/15 characters) - IMPORTANT: Discuss this in detail, ask follow-up questions to get a detailed reason for contact.
     - Urgency (integer, from 1-10)
     
     There is no need to ask user to stay in bounds of the field limits. Dont even mention it to them unless they will complain about the length of the reason of contact. 
@@ -75,7 +75,7 @@ def process_user_message(user_message, current_form_data, chat_history=None) -> 
     IMPORTANT:
     It is advised to use the history of the conversation with the user to get the context of the conversation or more information for u to add to the form.
     Example: in the first message the user might say "I have a problem with my order" and in the next message they might say "I want to cancel it". Or "I have a CPU issue" and then "it overheats, over 100 deg", so the final message for the reason of contact would be "Cpu issues, user saw the spikes in the temperatur in the ranges of 100 degrees, major overheating." 
-    So u take the two information and add it to the form to the "reason of contact" field in a proper way.
+    So u take the two information and add it to the form to the "reason of contact" field in a proper way with professional language, like a report for a technician.
     If the user provides some new information later on add it as well. Look at the formatted history of the conversation with the user. 
     Example: "I have also noticed the ram is not working properly" - add it to the reason of contact field. Always double check the reason of contact field and the current history to see whether u updates the filed correctly. 
     
@@ -85,7 +85,7 @@ def process_user_message(user_message, current_form_data, chat_history=None) -> 
     Instructions:
     1. If this is the first message and no fields are filled, introduce yourself and ask for the user's first name.
     2. If there are still empty fields, focus on getting information for the next empty field.
-    3. For the "Reason of contact" field, ask follow-up questions to get detailed information.
+    3. For the "reason_of_contact" field, ask follow-up questions to get detailed information, WE ARE NOT satisfied with short answers like: "Cpu hot" etc we need detailed answer.
     4. If all fields are filled, ask the user to confirm if everything is correct and offer to make changes if needed.
     5. Always extract any form field information from the user's response. Write it into the form with professional language.
     6. If the user provides information for multiple fields at once, update the form data accordingly.
