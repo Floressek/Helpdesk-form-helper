@@ -47,6 +47,64 @@ project/
     └── pyproject.toml       # Dependencies (Poetry)
 ```
 
+## Application Flow
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant Frontend as React Frontend
+    participant API as Django API
+    participant GeminiAI as Google Gemini AI
+
+    Note over User,GeminiAI: Form Initialization
+    User->>Frontend: Open application
+    activate Frontend
+    Frontend->>API: GET /api/initial-message/
+    activate API
+    API->>GeminiAI: Request welcome message
+    activate GeminiAI
+    GeminiAI-->>API: Return initial message
+    deactivate GeminiAI
+    API-->>Frontend: Return message response
+    deactivate API
+    Frontend-->>User: Display welcome message
+    
+    Note over User,GeminiAI: Conversation Flow
+    User->>Frontend: Enter message
+    Frontend->>API: POST /api/chat/ (message, form_data, chat_history)
+    activate API
+    API->>GeminiAI: Process user message with context
+    activate GeminiAI
+    GeminiAI-->>API: Return AI response and form updates
+    deactivate GeminiAI
+    API-->>Frontend: Return response with form updates
+    deactivate API
+    Frontend-->>User: Display AI response
+    Frontend->>Frontend: Update form fields
+    
+    Note over User,GeminiAI: Form Submission
+    User->>Frontend: Click Submit Form
+    Frontend->>API: POST /api/forms/ (complete form data)
+    activate API
+    API-->>Frontend: Confirm submission
+    deactivate API
+    Frontend-->>User: Display success message
+    
+    Note over User,GeminiAI: Start New Form
+    User->>Frontend: Click Start New Form
+    Frontend->>Frontend: Reload application
+    Frontend->>API: GET /api/initial-message/
+    activate API
+    API->>GeminiAI: Request welcome message
+    activate GeminiAI
+    GeminiAI-->>API: Return initial message
+    deactivate GeminiAI
+    API-->>Frontend: Return message response
+    deactivate API
+    Frontend-->>User: Display welcome message
+    deactivate Frontend
+```
+
 ## Features
 
 - Conversation with AI in a chat interface
@@ -57,7 +115,7 @@ project/
 
 ## Requirements
 
-- Docker and Docker Compose
+- Docker and Docker Compose - up and running
 - Google Gemini API key (to be placed in .env file)
 
 ## Installation and Setup—FOR RECRUITMENT TASK
