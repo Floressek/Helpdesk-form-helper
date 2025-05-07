@@ -74,8 +74,8 @@ docker-compose up --build
 
 
 Aplikacja będzie dostępna pod adresem:
-- Frontend: http://localhost:code
-- Backend API: http://localhost:code/api/
+- Frontend: http://localhost
+- Backend API: http://localhost:8000/api/
 
 ## Użytkowanie
 
