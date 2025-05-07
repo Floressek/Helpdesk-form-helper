@@ -11,6 +11,13 @@ genai.configure(api_key=API_KEY)
 
 
 def process_user_message(user_message, current_form_data, chat_history=None) -> dict:
+    """
+    This function processes the user's message and the current form data to generate a response
+    :param user_message:
+    :param current_form_data:
+    :param chat_history: it is the user side of messages, so previous messages from the user
+    :return:
+    """
     model = genai.GenerativeModel("gemini-2.0-flash")
 
     # FIXME
