@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -18,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: Don't use it on production, this is a demo app so it is not needed
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -33,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_petra',
-
+    'helpdesk'
 ]
 
 MIDDLEWARE = [
@@ -65,6 +69,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'src.wsgi.application'
+
+load_dotenv()
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
