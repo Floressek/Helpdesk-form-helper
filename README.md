@@ -135,7 +135,7 @@ Create a `.env` file in the project root with:
 GEMINI_API_KEY=your-api-key
 DEBUG=False
 SECRET_KEY=your-django-secret-key
-ALLOWED_HOSTS='localhost,127.0.0.1, *'
+ALLOWED_HOSTS=localhost,127.0.0.1,*
 ```
 
 The * is not recommended, but for the POC purposes we will leave it be.
